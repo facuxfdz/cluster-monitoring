@@ -1,0 +1,18 @@
+apiVersion: monitoring.coreos.com/v1
+kind: Prometheus
+metadata:
+  name: apps
+  namespace: monitoring
+spec:
+  serviceAccountName: prometheus-k8s # This comes from ServiceAccount CRD created by kube-prometheus
+  replicas: 1
+  serviceMonitorNamespaceSelector:
+    matchLabels:
+      kubernetes.io/metadata.name: default
+  serviceMonitorSelector: {}
+  resources:
+    requests:
+      memory: 400Mi
+
+
+
