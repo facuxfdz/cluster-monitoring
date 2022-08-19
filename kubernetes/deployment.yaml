@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: myapp
-        image: facuxfdz/example:v1.0.0
+        image: facuxfdz/example:v1.1.0
         resources:
           limits:
             memory: "128Mi"
