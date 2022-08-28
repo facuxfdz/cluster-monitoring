@@ -13,6 +13,15 @@ spec:
   resources:
     requests:
       memory: 400Mi
+  ruleSelector:
+    matchLabels:
+      role: app-alert-rules
+      prometheus: k8s
+  alerting:
+    alertmanagers:
+      - name: alertmanager-main
+        namespace: monitoring
+        port: web
 
 
 

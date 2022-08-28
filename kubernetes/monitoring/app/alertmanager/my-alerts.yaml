@@ -1,0 +1,22 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  labels:
+    prometheus: k8s
+    role: app-alert-rules
+  name: time-rule
+  namespace: monitoring
+spec:
+  groups:
+    - name: response time
+      rules:
+        - alert: response time
+          annotations:
+            description: 5% of requests are getting a response time of {{ $value }}
+            summary: Response time is getting slow
+          expr: |
+            histogram_quantile(0.05,sum(rate(python_request_duration_seconds_bucket[1m])) by (le)) > 0.5
+          for: 30s
+          labels:
+            severity: "critical"
+  
