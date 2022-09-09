@@ -42,6 +42,8 @@ jobs:
       - script: |
           echo "We're in $PWD" 
           ls
-          which docker
         workingDirectory: $(Build.SourcesDirectory)/dev
         displayName: Set default directory
+      - script: |
+          docker run --rm mikefarah/yq r deployment.yaml "spec.template.spec.containers[0].image"
+        displayName: Update deployment yaml
