@@ -42,5 +42,6 @@ jobs:
       - script: |
           echo "We're in $PWD" 
           ls
+          which docker
         workingDirectory: $(Build.SourcesDirectory)/dev
         displayName: Set default directory
