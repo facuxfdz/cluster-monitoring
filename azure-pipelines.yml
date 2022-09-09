@@ -15,7 +15,8 @@ steps:
 - script: |
     SHORT_HASH=`git rev-parse --short=7`
     echo "holis: $SHORT_HASH"
-
+  displayName: Exporto variable
+  
 - task: Docker@2
   displayName: Build and Push
   inputs:
