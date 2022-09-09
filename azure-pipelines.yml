@@ -14,10 +14,10 @@ jobs:
 - job: A
   steps:
   - bash: |
-     echo "##vso[task.setvariable variable=myOutputVar]this is from job A"
+      echo "##vso[task.setvariable variable=myOutputVar;isoutput=true]this is from job A"
     name: passOutput
   - bash: |
-      echo $(myVarFromJobA)
+      echo $(myOutputVar)
 - job: B
   dependsOn: A
   variables:
