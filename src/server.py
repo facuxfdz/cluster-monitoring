@@ -24,7 +24,9 @@ def hello():
     graphs['h'].observe(end-start)
     return f"""
     Hi! 
-    Your request duration time: {end-start}"""
+    Your request duration time: {end-start}
+    See u later :)
+    """
 
 @app.route("/metrics")
 def requests_count():
