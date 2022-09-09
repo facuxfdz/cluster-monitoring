@@ -14,7 +14,7 @@ steps:
 
 - script: |
     SHORT_HASH=`git rev-parse --short=7 HEAD`
-    echo "Git short hash: $SHORT_HASH"
+    echo "Git Short Hash: $SHORT_HASH"
   displayName: Export git short hash
 
 - task: Docker@2
