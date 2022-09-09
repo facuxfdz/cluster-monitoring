@@ -40,10 +40,6 @@ jobs:
     steps:
       - checkout: exampleAppRepo
       - script: |
-          echo "We're in $PWD" 
-          ls
-        workingDirectory: $(Build.SourcesDirectory)/dev
-        displayName: Set default directory
-      - script: |
           cat deployment.yaml | docker run -i --rm mikefarah/yq e ".spec.template.spec.containers[0].image"
         displayName: Update deployment yaml
+        workingDirectory: $(Build.SourcesDirectory)/dev
