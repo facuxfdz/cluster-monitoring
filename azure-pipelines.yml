@@ -1,0 +1,15 @@
+trigger:
+- master
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- script: echo Hello, world!
+  displayName: 'Run a hello world example'
+
+- script: |
+    short_hash=`git rev-parse --short=7 HEAD`
+    echo Hola soy facu
+    echo "short git hash: $short_hash"
+  displayName: 'Run a multi-line script'
