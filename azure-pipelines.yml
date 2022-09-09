@@ -6,7 +6,7 @@ resources:
     - repository: exampleAppRepo
       type: github
       endpoint: facuxfdz
-      name: facuxfdz/cluster-monitoring
+      name: facuxfdz/response-time-app-infra
 pool:
   vmImage: ubuntu-latest
 
@@ -39,5 +39,5 @@ jobs:
     dependsOn: build_app
     steps:
       - checkout: exampleAppRepo
-      - script: cd $(Build.SourcesDirectory)/ ; ls;
+      - script: cd $(Build.SourcesDirectory)/kubernetes ; ls;
         displayName: averga donde estoy
