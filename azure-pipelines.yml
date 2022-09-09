@@ -14,8 +14,9 @@ steps:
 
 - script: |
     short_hash=`git rev-parse --short=7 HEAD`
-    echo '##vso[task.setvariable variable=SHORT_HASH;]$short_hash'
     echo "Git Short Hash: $short_hash"
+  env:
+    SHORT_HASH: $(short_hash)
   displayName: Export git short hash
 
 - task: Docker@2
