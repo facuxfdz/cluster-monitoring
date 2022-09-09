@@ -42,5 +42,5 @@ jobs:
       - script: |
           echo "We're in $PWD" 
           ls
-        workingDirectory: (Build.SourcesDirectory)/dev
+        workingDirectory: $(Build.SourcesDirectory)/dev
         displayName: Set default directory
