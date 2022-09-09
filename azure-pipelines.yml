@@ -13,10 +13,10 @@ steps:
     containerRegistry: dockerhub
 
 - script: |
-    SHORT_HASH=`git rev-parse --short=7`
-    echo "holis: $SHORT_HASH"
-  displayName: Exporto variable
-  
+    SHORT_HASH=`git rev-parse --short=7 HEAD`
+    echo "Git short hash: $SHORT_HASH"
+  displayName: Export git short hash
+
 - task: Docker@2
   displayName: Build and Push
   inputs:
