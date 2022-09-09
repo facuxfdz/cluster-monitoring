@@ -45,5 +45,5 @@ jobs:
         workingDirectory: $(Build.SourcesDirectory)/dev
         displayName: Set default directory
       - script: |
-          docker run --rm mikefarah/yq r deployment.yaml "spec.template.spec.containers[0].image"
+          cat deployment.yaml | docker run -i --rm mikefarah/yq e ".spec.template.spec.containers[0].image"
         displayName: Update deployment yaml
