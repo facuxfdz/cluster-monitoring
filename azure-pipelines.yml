@@ -1,6 +1,12 @@
 trigger:
 - master
 
+resources: 
+  repositories:
+    - repository: exampleAppRepo
+      type: github
+      endpoint: facuxfdz
+      name: facuxfdz/cluster-monitoring
 pool:
   vmImage: ubuntu-latest
 
@@ -22,3 +28,13 @@ steps:
     command: buildAndPush
     repository: facuxfdz/example-app
     tags: $(SHORT_HASH)
+
+- bash: |
+    git config --global user.email "facuassain@gmail.com"
+    git config --global user.name "azure-pipeline"
+  displayName: Git config
+
+- checkout: exampleAppRepo
+
+- script: cd $(Build.SourcesDirectory)/ ; ls;
+  displayName: averga donde estoy
