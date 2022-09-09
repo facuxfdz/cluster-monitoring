@@ -21,4 +21,4 @@ steps:
   inputs:
     command: buildAndPush
     repository: example-app
-    tags: '$(SHORT_HASH)'
+    tags: $SHORT_HASH
