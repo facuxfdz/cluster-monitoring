@@ -39,5 +39,8 @@ jobs:
     dependsOn: build_app
     steps:
       - checkout: exampleAppRepo
-      - script: cd $(Build.SourcesDirectory)/kubernetes ; ls;
-        displayName: averga donde estoy
+      - script: |
+          echo "We're in $PWD" 
+          ls
+        workingDirectory: (Build.SourcesDirectory)/dev
+        displayName: Set default directory
