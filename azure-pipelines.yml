@@ -14,12 +14,13 @@ steps:
 
 - script: |
     short_hash=`git rev-parse --short=7 HEAD`
+    export SHORT_HASH=$short_hash
     echo "Git Short Hash: $short_hash"
   displayName: Export git short hash
 
 - script: |
-    echo "short hash should be $short_hash"
-    echo "a ver esta $env:short_hash"
+    echo "short hash should be $SHORT_HASH"
+    echo "a ver esta {{env.SHORT_HASH}}"
 
 # - task: Docker@2
 #   displayName: Build and Push
