@@ -32,7 +32,7 @@ jobs:
         repository: facuxfdz/example-app
         tags: $(passOutput.SHORT_HASH)
 
-  - job: averga
+  - job: updateGithubRepo
     dependsOn: build_app
     variables: 
       SHORT_HASH: $[ dependencies.build_app.outputs['passOutput.SHORT_HASH'] ]
@@ -45,9 +45,8 @@ jobs:
         persistCredentials: true
       - script: |
           short_hash=$(SHORT_HASH)
-          echo "lloro porque esta fixeado?"
           git checkout -b master
-          cat dev/deployment.yaml | docker run -i --rm mikefarah/yq e ".spec.template.spec.containers[0].image = \"facuxfdz/example-app:$short_hash\"" > dev/deployment.yaml
+          cat dev/deployment.yaml | docker run -i --rm mikefarah/yq e -i ".spec.template.spec.containers[0].image = \"facuxfdz/example-app:$short_hash\"" > dev/deployment.yaml
           git add .
           git commit -m "Pipeline commit" -m "Deployment image updated"
           git push --set-upstream origin master
