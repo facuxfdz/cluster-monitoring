@@ -22,9 +22,8 @@ def hello():
     time.sleep(random.uniform(0.5,2))
     end = time.time()
     graphs['h'].observe(end-start)
-    return f"""
-    Hi! 
-    Your request duration time: {end-start}
+    return f""" 
+    Your request duration time: {end-start}\n
     See u later :)
     """
 
