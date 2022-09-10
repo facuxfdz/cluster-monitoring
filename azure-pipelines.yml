@@ -42,6 +42,7 @@ jobs:
           git config --global user.name "azure-pipeline"
         displayName: Git config
       - checkout: exampleAppRepo
+        persistCredentials: true
       - script: |
           short_hash=$(SHORT_HASH)
           echo "lloro porque esta fixeado?"
