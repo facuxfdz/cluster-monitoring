@@ -47,16 +47,16 @@ jobs:
         repository: facuxfdz/example-app
         tags: $(passOutput.SHORT_HASH)
 
-    - bash: |
-        git config --global user.email "facuassain@gmail.com"
-        git config --global user.name "azure-pipeline"
-      displayName: Git config
-
   - job: averga
     dependsOn: build_app
     variables: 
       SHORT_HASH: $[ dependencies.build_app.outputs['passOutput.SHORT_HASH'] ]
     steps:
+      - bash: |
+          git config --global user.email "facuassain@gmail.com"
+          git config --global user.name "azure-pipeline"
+        displayName: Git config
+      
       - checkout: exampleAppRepo
       - script: |
           short_hash=$(SHORT_HASH)
