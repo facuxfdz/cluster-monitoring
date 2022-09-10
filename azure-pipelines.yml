@@ -37,10 +37,10 @@ jobs:
     - bash: |
         short_hash=`git rev-parse --short=7 HEAD`
         echo "##vso[task.setvariable variable=SHORT_HASH;isoutput=true]$short_hash"
-      displayName: generateShortHash
+      displayName: passOutput
     
     - bash: |
-        echo $(generateShortHash.SHORT_HASH)
+        echo $(passOutput.SHORT_HASH)
 
     # - task: Docker@2
     #   displayName: Build and Push
@@ -56,7 +56,7 @@ jobs:
   - job: averga
     dependsOn: build_app
     variables: 
-      SHORT_HASH: $[ dependencies.build_app.outputs['generateShortHash.SHORT_HASH'] ]
+      SHORT_HASH: $[ dependencies.build_app.outputs['passOutput.SHORT_HASH'] ]
     steps:
       - checkout: exampleAppRepo
       - script: |
