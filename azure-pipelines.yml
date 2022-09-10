@@ -28,11 +28,11 @@ jobs:
 
   - job: build_app 
     steps:
-    - task: Docker@2
-      displayName: Login to Docker Hub
-      inputs:
-        command: login
-        containerRegistry: dockerhub
+    # - task: Docker@2
+    #   displayName: Login to Docker Hub
+    #   inputs:
+    #     command: login
+    #     containerRegistry: dockerhub
 
     - bash: |
         short_hash=`git rev-parse --short=7 HEAD`
@@ -42,17 +42,17 @@ jobs:
     - bash: |
         echo $(generateShortHash.SHORT_HASH)
 
-    - task: Docker@2
-      displayName: Build and Push
-      inputs:
-        command: buildAndPush
-        repository: facuxfdz/example-app
-        tags: $(generateShortHash.SHORT_HASH)
+    # - task: Docker@2
+    #   displayName: Build and Push
+    #   inputs:
+    #     command: buildAndPush
+    #     repository: facuxfdz/example-app
+    #     tags: $(generateShortHash.SHORT_HASH)
 
-    - bash: |
-        git config --global user.email "facuassain@gmail.com"
-        git config --global user.name "azure-pipeline"
-      displayName: Git config
+    # - bash: |
+    #     git config --global user.email "facuassain@gmail.com"
+    #     git config --global user.name "azure-pipeline"
+    #   displayName: Git config
   - job: averga
     dependsOn: build_app
     variables: 
