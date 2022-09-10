@@ -23,8 +23,7 @@ def hello():
     end = time.time()
     graphs['h'].observe(end-start)
     return f""" 
-    Your request duration time: {end-start}\n
-    See u later :)
+    Application response time: {end-start}
     """
 
 @app.route("/metrics")
