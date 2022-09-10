@@ -59,7 +59,9 @@ jobs:
     steps:
       - checkout: exampleAppRepo
       - script: |
-          cat deployment.yaml | docker run -i --rm mikefarah/yq e ".spec.template.spec.containers[0].image = facuxfdz/example-app:$(SHORT_HASH)"
+          echo $(SHORT_HASH)
+          short_hash=$(SHORT_HASH)
+          cat deployment.yaml | docker run -i --rm mikefarah/yq e ".spec.template.spec.containers[0].image = \"facuxfdz/example-app:$short_hash\""
           cat deployment.yaml
         displayName: Update deployment yaml
         workingDirectory: $(Build.SourcesDirectory)/dev
