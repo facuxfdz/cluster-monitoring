@@ -63,7 +63,7 @@ jobs:
           cat deployment.yaml | docker run -i --rm mikefarah/yq e ".spec.template.spec.containers[0].image = \"facuxfdz/example-app:$short_hash\"" > deployment.yaml
           git add .
           git commit -m "Pipeline commit" -m "Deployment image updated"
-          git remove -v
+          git remote -v
           git push --set-upstream origin master
         displayName: Update deployment yaml
         workingDirectory: $(Build.SourcesDirectory)/dev
