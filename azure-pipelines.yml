@@ -46,7 +46,7 @@ jobs:
       - script: |
           short_hash=$(SHORT_HASH)
           git checkout -b master
-          cat dev/deployment.yaml | docker run -i --rm mikefarah/yq e -i ".spec.template.spec.containers[0].image = \"facuxfdz/example-app:$short_hash\"" > deployment.yaml
+          cat dev/deployment.yaml | docker run -i --rm mikefarah/yq e ".spec.template.spec.containers[0].image = \"facuxfdz/example-app:$short_hash\"" > deployment.yaml
           rm dev/deployment.yaml
           mv deployment.yaml dev/
           cat dev/deployment.yaml
