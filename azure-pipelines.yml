@@ -7,7 +7,7 @@ resources:
       type: github
       endpoint: facuxfdz
       name: facuxfdz/response-time-app-infra
-      ref: refs/heads/master
+      ref: master
 pool:
   vmImage: ubuntu-latest
 
@@ -44,7 +44,7 @@ jobs:
       - checkout: exampleAppRepo
       - script: |
           short_hash=$(SHORT_HASH)
-          git pull --rebase
+          git pull --rebase origin master
           cat deployment.yaml | docker run -i --rm mikefarah/yq e ".spec.template.spec.containers[0].image = \"facuxfdz/example-app:$short_hash\"" > deployment.yaml
           git add .
           git commit -m "Pipeline commit" -m "Deployment image updated"
