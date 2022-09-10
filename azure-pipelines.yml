@@ -11,59 +11,59 @@ pool:
   vmImage: ubuntu-latest
 
 jobs:
-- job: A
-  steps:
-  - bash: |
-      var=`echo putos`
-      echo "##vso[task.setvariable variable=myOutputVar;isoutput=true]$var"
-    name: passOutput
-  - bash: |
-      echo $(passOutput.myOutputVar)
-- job: B
-  dependsOn: A
-  variables:
-    myVarFromJobA: $[ dependencies.A.outputs['passOutput.myOutputVar'] ]  
-  steps:
-  - bash: |
-     echo $(myVarFromJobA)
+# - job: A
+#   steps:
+#   - bash: |
+#       var=`echo putos`
+#       echo "##vso[task.setvariable variable=myOutputVar;isoutput=true]$var"
+#     name: passOutput
+#   - bash: |
+#       echo $(passOutput.myOutputVar)
+# - job: B
+#   dependsOn: A
+#   variables:
+#     myVarFromJobA: $[ dependencies.A.outputs['passOutput.myOutputVar'] ]  
+#   steps:
+#   - bash: |
+#      echo $(myVarFromJobA)
 
-  # - job: build_app 
-  #   steps:
-  #   - task: Docker@2
-  #     displayName: Login to Docker Hub
-  #     inputs:
-  #       command: login
-  #       containerRegistry: dockerhub
+  - job: build_app 
+    steps:
+    - task: Docker@2
+      displayName: Login to Docker Hub
+      inputs:
+        command: login
+        containerRegistry: dockerhub
 
-  #   - bash: |
-  #       short_hash=`git rev-parse --short=7 HEAD`
-  #       echo "##vso[task.setvariable variable=SHORT_HASH;isoutput=true]$short_hash"
-  #     displayName: passOutput
+    - bash: |
+        short_hash=`git rev-parse --short=7 HEAD`
+        echo "##vso[task.setvariable variable=SHORT_HASH;isoutput=true]$short_hash"
+      name: passOutput
     
-  #   - bash: |
-  #       echo $(passOutput.SHORT_HASH)
+    - bash: |
+        echo $(passOutput.SHORT_HASH)
 
-  #   - task: Docker@2
-  #     displayName: Build and Push
-  #     inputs:
-  #       command: buildAndPush
-  #       repository: facuxfdz/example-app
-  #       tags: $(generateShortHash.SHORT_HASH)
+    - task: Docker@2
+      displayName: Build and Push
+      inputs:
+        command: buildAndPush
+        repository: facuxfdz/example-app
+        tags: $(generateShortHash.SHORT_HASH)
 
-  #   - bash: |
-  #       git config --global user.email "facuassain@gmail.com"
-  #       git config --global user.name "azure-pipeline"
-  #     displayName: Git config
+    - bash: |
+        git config --global user.email "facuassain@gmail.com"
+        git config --global user.name "azure-pipeline"
+      displayName: Git config
 
-  # - job: averga
-  #   dependsOn: build_app
-  #   variables: 
-  #     SHORT_HASH: $[ dependencies.build_app.outputs['passOutput.SHORT_HASH'] ]
-  #   steps:
-  #     - checkout: exampleAppRepo
-  #     - script: |
-  #         echo $(SHORT_HASH)
-  #         exit 1 && cat deployment.yaml | docker run -i --rm mikefarah/yq e ".spec.template.spec.containers[0].image = facuxfdz/example-app:$(SHORT_HASH)"
+  - job: averga
+    dependsOn: build_app
+    variables: 
+      SHORT_HASH: $[ dependencies.build_app.outputs['passOutput.SHORT_HASH'] ]
+    steps:
+      - checkout: exampleAppRepo
+      - script: |
+          echo $(SHORT_HASH)
+          exit 1 && cat deployment.yaml | docker run -i --rm mikefarah/yq e ".spec.template.spec.containers[0].image = facuxfdz/example-app:$(SHORT_HASH)"
           
-  #       displayName: Update deployment yaml
-  #       workingDirectory: $(Build.SourcesDirectory)/dev
+        displayName: Update deployment yaml
+        workingDirectory: $(Build.SourcesDirectory)/dev
