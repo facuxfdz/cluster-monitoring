@@ -14,7 +14,8 @@ jobs:
 - job: A
   steps:
   - bash: |
-      echo "##vso[task.setvariable variable=myOutputVar;isoutput=true]this is from job A"
+      var=`echo putos`
+      echo "##vso[task.setvariable variable=myOutputVar;isoutput=true]$var"
     name: passOutput
   - bash: |
       echo $(passOutput.myOutputVar)
