@@ -22,8 +22,9 @@ def hello():
     time.sleep(random.uniform(0.5,2))
     end = time.time()
     graphs['h'].observe(end-start)
+    rounded_value = str(round(end-start, 2))
     return f""" 
-    Application response time: {end-start}
+    Application response time: {rounded_value}
     """
 
 @app.route("/metrics")
